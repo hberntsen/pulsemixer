@@ -68,10 +68,10 @@ Interactive mode is used when no arguments were given (except `--color` and `--s
 
 Interactive controls:
 ```
-  h/j/k/l, arrows               navigation, volume change
+  n/e/i/o, arrows               navigation, volume change
   PgUp/PgDn                     navigation
   Home/End                      select first/last device
-  H/L, Shift+Left/Shift+Right   change volume by 10
+  N/O, Shift+Left/Shift+Right   change volume by 10
   1/2/3/4/5/6/7/8/9/0           set volume to 10%-100%
   m                             mute/unmute
   Space                         lock/unlock channels together

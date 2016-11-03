@@ -57,6 +57,12 @@ BAR_OFF            = bar_style[7]
 ARROW              = bar_style[8]
 ARROW_FOCUSED      = bar_style[9]
 ARROW_LOCKED       = bar_style[10]
+KEY_SLEFT          = 'N'
+KEY_LEFT           = 'n'
+KEY_DOWN           = 'e'
+KEY_UP             = 'i'
+KEY_RIGHT          = 'o'
+KEY_SRIGHT         = 'O'
 
 
 class PA_MAINLOOP(Structure):
@@ -1556,7 +1562,7 @@ class Screen():
             if side is Bar.NONE:
                 continue
 
-            if c in (curses.KEY_UP, ord('k'), curses.KEY_PPAGE):
+            if c in (curses.KEY_UP, ord(KEY_UP), curses.KEY_PPAGE):
                 if bar.locked:
                     if self.data[focus][1] == 0:
                         n = 1
@@ -1567,7 +1573,7 @@ class Screen():
                     self.scroll(self.UP)
                 if not self.data[self.top_line_num + self.focus_line_num][0]:
                     self.scroll(self.UP)
-            elif c in (curses.KEY_DOWN, ord('j'), curses.KEY_NPAGE):
+            elif c in (curses.KEY_DOWN, ord(KEY_DOWN), curses.KEY_NPAGE):
                 if bar.locked:
                     if self.data[focus][1] == self.data[focus][3] - 1:
                         n = 1
@@ -1587,13 +1593,13 @@ class Screen():
                 bar.mute_toggle()
             elif c == self.SPACE_KEY:
                 bar.lock_toggle()
-            elif c in (curses.KEY_LEFT, ord('h')) or any([c & i for i in self.SCROLL_DOWN]):
+            elif c in (curses.KEY_LEFT, ord(KEY_LEFT)) or any([c & i for i in self.SCROLL_DOWN]):
                 bar.move(-1, side)
-            elif c in (curses.KEY_RIGHT, ord('l')) or any([c & i for i in self.SCROLL_UP]):
+            elif c in (curses.KEY_RIGHT, ord(KEY_RIGHT)) or any([c & i for i in self.SCROLL_UP]):
                 bar.move(1, side)
-            elif c in (curses.KEY_SLEFT, ord('H')):
+            elif c in (curses.KEY_SLEFT, ord(KEY_SLEFT)):
                 bar.move(-10, side)
-            elif c in (curses.KEY_SRIGHT, ord('L')):
+            elif c in (curses.KEY_SRIGHT, ord(KEY_SRIGHT)):
                 bar.move(10, side)
             elif c in self.DIGITS:
                 percent = int(chr(c)) * 10
@@ -1606,9 +1612,9 @@ class Screen():
             self.focus_line_num = self.modes_data[5][1]
             self.top_line_num = self.modes_data[5][2]
 
-        elif c in (curses.KEY_UP, ord('k'), curses.KEY_PPAGE):
+        elif c in (curses.KEY_UP, ord(KEY_UP), curses.KEY_PPAGE):
             self.scroll(self.UP)
-        elif c in (curses.KEY_DOWN, ord('j'), curses.KEY_NPAGE):
+        elif c in (curses.KEY_DOWN, ord(KEY_DOWN), curses.KEY_NPAGE):
             self.scroll(self.DOWN)
         elif c == curses.KEY_HOME:
             self.scroll_first()
@@ -1850,8 +1856,8 @@ class Screen():
         self.screen.refresh()
 
     def display_helpwin(self):
-        '''h/j/k/l, arrows               navigation, volume change
-          H/L, Shift+Left/Shift+Right   change volume by 10
+        '''n/e/i/o, arrows               navigation, volume change
+          N/O, Shift+Left/Shift+Right   change volume by 10
           1/2/3/4/5/6/7/8/9/0           set volume to 10%-100%
           m                             mute/unmute
           Space                         lock/unlock channels together
